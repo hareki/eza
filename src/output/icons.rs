@@ -36,7 +36,7 @@ impl Icons {
     const ESLINT: char          = '\u{e655}';  // 
     const FILE: char            = '\u{f15b}';  // 
     const FILE_3D: char         = '\u{f01a7}'; // 󰆧
-    const FOLDER: char          = '\u{e5ff}';  // 
+    const FOLDER: char          = '\u{f024b}'; // 󰉋
     const FOLDER_BUILD: char    = '\u{f19fc}'; // 󱧼
     const FOLDER_CONFIG: char   = '\u{e5fc}';  // 
     const FOLDER_EXERCISM: char = '\u{ebe5}';  // 
@@ -46,7 +46,7 @@ impl Icons {
     const FOLDER_KEY: char      = '\u{f08ac}'; // 󰢬
     const FOLDER_NPM: char      = '\u{e5fa}';  // 
     const FOLDER_OCAML: char    = '\u{e67a}';  // 
-    const FOLDER_OPEN: char     = '\u{f115}';  // 
+    const FOLDER_OPEN: char     = '\u{f0770}';  // 󰝰
     const FILE_UNKNOW: char     = '\u{f086f}'; // 󰡯
     const FONT: char            = '\u{f031}';  // 
     const FREECAD: char         = '\u{f336}';  // 
@@ -1129,9 +1129,9 @@ pub fn icon_for_file(file: &File<'_>) -> char {
     if file.points_to_directory() {
         *DIRECTORY_ICONS.get(file.name.as_str()).unwrap_or_else(|| {
             if file.is_empty_dir() {
-                &Icons::FOLDER_OPEN // 
+                &Icons::FOLDER_OPEN // 󰝰
             } else {
-                &Icons::FOLDER // 
+                &Icons::FOLDER // 󰉋
             }
         })
     } else if let Some(icon) = FILENAME_ICONS.get(file.name.as_str()) {
