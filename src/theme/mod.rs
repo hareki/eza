@@ -484,7 +484,11 @@ impl FileNameColours for Theme {
                 return Some(*file_override);
             }
 
-        if let Some(ref ext_overrides) = self.ui.extensions
+        // Extension overrides must not apply to directories: eza derives a dir's
+        // extension from its name (".git" -> "git", "cron.d" -> "d"), so an
+        // `extensions` entry would otherwise hijack any dir ending in that ext.
+        if !file.points_to_directory()
+            && let Some(ref ext_overrides) = self.ui.extensions
             && let Some(ext) = file.ext.clone()
                 && let Some(file_override) = ext_overrides.get(&ext) {
                     return Some(*file_override);
