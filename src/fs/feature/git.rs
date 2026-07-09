@@ -253,10 +253,11 @@ fn get_path_from_status_entry(e: &StatusEntry<'_>) -> Option<PathBuf> {
     #[cfg(target_family = "unix")]
     return Some(PathBuf::from(OsStr::from_bytes(e.path_bytes())));
     #[cfg(not(target_family = "unix"))]
-    return if let Some(p) = e.path() {
+    // In git2 0.21, `path` became fallible for non-UTF-8 paths.
+    return if let Ok(p) = e.path() {
         Some(PathBuf::from(p))
     } else {
-        info!("Git status ignored for non ASCII path {:?}", e.path_bytes());
+        info!("Git status ignored for non UTF-8 path {:?}", e.path_bytes());
         None
     };
 }
@@ -408,7 +409,8 @@ fn current_branch(repo: &git2::Repository) -> Option<String> {
         }
     };
 
-    head.and_then(|h| h.shorthand().map(std::string::ToString::to_string))
+    // In git2 0.21, `shorthand` became fallible for non-UTF-8 branch names.
+    head.and_then(|h| h.shorthand().ok().map(std::string::ToString::to_string))
 }
 
 impl f::SubdirGitRepo {

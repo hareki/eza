@@ -183,6 +183,12 @@ commands:
   ? - -i
     - --inode
   :
+  ? - null # --loc/--code take modes via `=` only, so just the bare forms
+    - --loc
+  : prefix: -l
+  ? - null
+    - --code
+  :
   ? - -m
     - --modified
   :
