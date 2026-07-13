@@ -59,6 +59,7 @@ MiniIcons.setup({
     dotenv = { glyph = fi.DOTENV, hl = 'MiniIconsYellow' },
     sql = { glyph = fi.SQL, hl = 'MiniIconsYellow' },
     text = { glyph = fi.TEXT, hl = 'MiniIconsGrey' },
+    handlebars = { glyph = fi.HANDLEBARS, hl = 'MiniIconsOrange' },
   },
 })
 
